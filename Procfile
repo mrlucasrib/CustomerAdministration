@@ -1,2 +1,2 @@
-release: pipenv run db
-web: pipenv run prod
+release: python manage.py migrate
+web: gunicorn CustomerAdministration.wsgi
