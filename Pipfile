@@ -7,6 +7,10 @@ verify_ssl = true
 
 [packages]
 django = "*"
+django-crispy-forms = "*"
 
 [requires]
 python_version = "3.8"
+
+[scripts]
+dev = "python manage.py runserver"
