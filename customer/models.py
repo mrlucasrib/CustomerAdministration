@@ -17,6 +17,15 @@ class Customer(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+    def get_full_phone_number(self):
+        return f"({self.area_code}) {self.phone_number}"
+    
+    def get_full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
+    def get_full_city(self):
+        return f"{self.city} - {self.state}"
     
     class Meta:
         db_table = "customer"
