@@ -1,2 +1,2 @@
 release: pipenv run db
-web: guinicorn CustomerAdministration;wsgi --log-file -
+web: guinicorn CustomerAdministration.wsgi --log-file -
