@@ -12,7 +12,8 @@ class CustomerForm(forms.ModelForm):
     last_name = forms.CharField()
     email = forms.EmailField()
     birth_date = forms.DateField(widget=DateInput())
-    area_code = forms.CharField()
+    area_code = forms.RegexField(regex=r"^\+?1?[0-9]{2}$",
+    error_messages={"invalid": "Invalid Format"})
     phone_number = forms.CharField()
     country = forms.CharField()
     state = forms.CharField()

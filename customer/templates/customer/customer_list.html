@@ -2,8 +2,15 @@
 
 {% block content %}
     <h2>Customers</h2>
-    <a href="{% url "customer:customer-create" %}"></a>
-    <button class="btn btn-success" style="margin-bottom: 5px; float: right;">Add Customer</button>
+    <a href="{% url 'customer:customer-create' %}">
+        <button class="btn btn-success" style="margin-bottom: 5px; float: right;">Add Customer</button>
+    </a>
+    <form>
+        <div class="form-group nb-1">
+            <input type="text" name="name" class="form-control" placeholder="Search by name">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>    
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -17,15 +24,35 @@
         <tbody>
             {% for customer in customer_list %}
             <tr>
-                <th>{{customer.get_full_name}}</th>
+                <th><a href="{{customer.get_absolute_url}}">{{customer.get_full_name}}</a></th>
                 <th>{{customer.get_full_city}}</th>
                 <th>{{customer.get_full_phone_number}}</th>
                 <th>{{customer.email}}</th>
-                <th><button class="btn btn-danger">DELETE</button>
+                <form action="{{customer.get_delete_url}}" method="post">{% csrf_token %}
+                    <th><button class="btn btn-danger">DELETE</button>
+                </form>
                 </th>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    <ui class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link">Previous</a></li>
+        {% else %}
+            <li class="page-item disabled"><a href="#" class="page-link">Previous</a></li>
+        {% endif %}
+        {% for object in page_obj.paginator.page_range %}
+            <li class="page-item"><a href="?page={{forloop.counter}}" class="page-link">{{forloop.counter}}</a></li>
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link">Next</a></li>
+        {% else %}
+            <li class="page-item disabled"><a href="#" class="page-link">Next</a></li>
+        {% endif %}
+        
+
+    </ui>
 
 {% endblock %}
