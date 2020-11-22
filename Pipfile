@@ -19,3 +19,4 @@ python_version = "3.8"
 [scripts]
 dev = "python manage.py runserver"
 db = "python manage.py migrate"
+prod = "gunicorn CustomerAdministration.wsgi"
