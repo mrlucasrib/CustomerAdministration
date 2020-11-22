@@ -1,13 +1,15 @@
 {% extends "model-page.html" %}
 
 {% block content %}
-    <h2>Clientes</h2>
+    <h2>Customers</h2>
+    <a href="{% url "customer:customer-create" %}"></a>
+    <button class="btn btn-success" style="margin-bottom: 5px; float: right;">Add Customer</button>
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Nome</th>
-                <th>Cidade</th>
-                <th>Telefone</th>
+                <th>Name</th>
+                <th>City</th>
+                <th>Phone number</th>
                 <th>E-mail</th>
                 <th></th>
             </tr>
@@ -15,7 +17,12 @@
         <tbody>
             {% for customer in customer_list %}
             <tr>
-                <th>{{customer.first_name}}}</th>
+                <th>{{customer.get_full_name}}</th>
+                <th>{{customer.get_full_city}}</th>
+                <th>{{customer.get_full_phone_number}}</th>
+                <th>{{customer.email}}</th>
+                <th><button class="btn btn-danger">DELETE</button>
+                </th>
             </tr>
             {% endfor %}
         </tbody>
